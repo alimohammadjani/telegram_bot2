@@ -27,9 +27,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_html(rf"hello {user.mention_html()}!")
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     save_username(update)
-    await update.message.reply_text("Help")
-async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    save_username(update)
     text = update.message.text.lower()
     if text == "hello":
         await update.message.reply_text("hello")
@@ -40,7 +37,6 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 def main() -> None:
     application = Application.builder().token("BOT TOKEN").build()
     application.add_handler(CommandHandler("start", start))
-    application.add_handler(CommandHandler("help", help))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
     application.run_polling()
 if __name__ == "__main__":
